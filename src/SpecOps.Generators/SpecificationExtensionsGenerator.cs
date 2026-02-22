@@ -48,8 +48,13 @@ public class SpecificationExtensionsGenerator : IIncrementalGenerator
             ? null
             : symbol.ContainingNamespace.ToDisplayString();
 
+        var methodName = symbol.Name.EndsWith("Spec") && symbol.Name.Length > 4
+            ? symbol.Name.Substring(0, symbol.Name.Length - 4)
+            : symbol.Name;
+
         return new SpecInfo(
             ClassName: symbol.Name,
+            MethodName: methodName,
             Namespace: ns,
             EntityType: entityType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             Parameters: parameters);
@@ -124,7 +129,7 @@ public class SpecificationExtensionsGenerator : IIncrementalGenerator
                 var specType = $"global::SpecOps.Specification<{spec.EntityType}>";
 
                 // Factory method
-                sb.AppendLine($"    public static {specType} {spec.ClassName}({paramList})");
+                sb.AppendLine($"    public static {specType} {spec.MethodName}({paramList})");
                 sb.AppendLine($"        => new {spec.ClassName}({argList});");
                 sb.AppendLine();
 
@@ -132,7 +137,7 @@ public class SpecificationExtensionsGenerator : IIncrementalGenerator
                 var chainParam = $"this global::SpecOps.SpecChain<{spec.EntityType}> chain";
                 var extParamList = paramList.Length > 0 ? $"{chainParam}, {paramList}" : chainParam;
 
-                sb.AppendLine($"    public static {specType} {spec.ClassName}({extParamList})");
+                sb.AppendLine($"    public static {specType} {spec.MethodName}({extParamList})");
                 sb.AppendLine($"        => chain.Combine(new {spec.ClassName}({argList}));");
                 sb.AppendLine();
             }
@@ -146,6 +151,7 @@ public class SpecificationExtensionsGenerator : IIncrementalGenerator
 
     private readonly record struct SpecInfo(
         string ClassName,
+        string MethodName,
         string? Namespace,
         string EntityType,
         ImmutableArray<ParameterInfo> Parameters);

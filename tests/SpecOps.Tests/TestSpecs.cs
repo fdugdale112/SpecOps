@@ -19,3 +19,9 @@ public class OlderThan(int age) : Specification<TestEntity>
     public override Expression<Func<TestEntity, bool>> ToExpression()
         => e => e.Age > age;
 }
+
+public class YoungerThanSpec(int age) : Specification<TestEntity>
+{
+    public override Expression<Func<TestEntity, bool>> ToExpression()
+        => e => e.Age < age;
+}

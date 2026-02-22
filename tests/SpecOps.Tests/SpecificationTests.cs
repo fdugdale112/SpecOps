@@ -164,6 +164,20 @@ public class SpecificationTests
         }
     }
 
+    public class SpecSuffixStrippingTests
+    {
+        [Fact]
+        public void YoungerThanSpec_GeneratesMethodWithoutSuffix()
+            => YoungerThan(35).IsSatisfiedBy(John).Should().BeTrue();
+
+        [Fact]
+        public void YoungerThanSpec_WorksInChain()
+        {
+            var spec = NameContaining("John").And().YoungerThan(35);
+            spec.IsSatisfiedBy(John).Should().BeTrue();
+        }
+    }
+
     public class QueryableExtensionTests
     {
         [Fact]
