@@ -195,5 +195,21 @@ public class SpecificationTests
             result.Should().HaveCount(2);
             result.Select(e => e.Name).Should().Contain("John").And.Contain("Bob");
         }
+
+        [Fact]
+        public void Where_WithSpec_FiltersCorrectly()
+        {
+            var entities = new[]
+            {
+                new TestEntity("John", "john@example.com", 30),
+                new TestEntity("Alice", "alice@example.com", 25),
+                new TestEntity("Bob", "bob@example.com", 40)
+            }.AsQueryable();
+
+            var result = entities.Where(OlderThan(28)).ToList();
+
+            result.Should().HaveCount(2);
+            result.Select(e => e.Name).Should().Contain("John").And.Contain("Bob");
+        }
     }
 }

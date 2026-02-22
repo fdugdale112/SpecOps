@@ -10,4 +10,13 @@ public static class QueryableExtensions
         this IQueryable<T> query,
         Specification<T> spec) where T : class
         => query.Where(spec.ToExpression());
+
+    /// <summary>
+    /// Filters the query using a specification's expression.
+    /// A more natural LINQ-style alternative to WithSpecification.
+    /// </summary>
+    public static IQueryable<T> Where<T>(
+        this IQueryable<T> query,
+        Specification<T> spec) where T : class
+        => query.Where(spec.ToExpression());
 }
