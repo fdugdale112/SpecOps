@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
 
     <!-- NuGet package metadata -->
-    <PackageId>FluentSpecification</PackageId>
+    <PackageId>SpecOps</PackageId>
     <Version>0.1.0</Version>
-    <Authors>Fred Dugdale</Authors>
+    <Authors>Freddie</Authors>
     <Description>A fluent, composable Specification pattern for .NET. Build readable, testable business rules as expressions that translate directly to SQL via EF Core.</Description>
     <PackageTags>specification;ddd;domain-driven-design;efcore;linq;expressions</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluentSpecification.Generators\FluentSpecification.Generators.csproj"
+    <ProjectReference Include="..\SpecOps.Generators\SpecOps.Generators.csproj"
                       ReferenceOutputAssembly="false"
                       OutputItemType="Analyzer" />
   </ItemGroup>
@@ -32,7 +32,7 @@
 
   <Target Name="_AddGeneratorToPackage">
     <ItemGroup>
-      <None Include="$(MSBuildProjectDirectory)/../FluentSpecification.Generators/bin/$(Configuration)/netstandard2.0/FluentSpecification.Generators.dll"
+      <None Include="$(MSBuildProjectDirectory)/../SpecOps.Generators/bin/$(Configuration)/netstandard2.0/SpecOps.Generators.dll"
             Pack="true"
             PackagePath="analyzers/dotnet/cs"
             Visible="false" />

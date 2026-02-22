@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace FluentSpecification;
+namespace SpecOps;
 
 internal sealed class NotSpecification<T>(Specification<T> spec) : Specification<T>
     where T : class

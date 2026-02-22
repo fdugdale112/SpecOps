@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 
-namespace FluentSpecification;
+namespace SpecOps;
 
-internal sealed class AndSpecification<T>(Specification<T> left, Specification<T> right) : Specification<T>
+internal sealed class OrSpecification<T>(Specification<T> left, Specification<T> right) : Specification<T>
     where T : class
 {
     public override Expression<Func<T, bool>> ToExpression()
@@ -11,7 +11,7 @@ internal sealed class AndSpecification<T>(Specification<T> left, Specification<T
         var rightExpr = right.ToExpression();
         var parameter = Expression.Parameter(typeof(T), "e");
 
-        var body = Expression.AndAlso(
+        var body = Expression.OrElse(
             Expression.Invoke(leftExpr, parameter),
             Expression.Invoke(rightExpr, parameter));
 

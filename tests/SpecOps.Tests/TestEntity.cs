@@ -1,4 +1,4 @@
-namespace FluentSpecification.Tests;
+namespace SpecOps.Tests;
 
 public class TestEntity(string name, string email, int age)
 {

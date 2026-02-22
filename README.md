@@ -1,11 +1,11 @@
-# FluentSpecification
+# SpecOps
 
 A fluent, composable Specification pattern for .NET. Build readable, testable business rules as expressions that translate directly to SQL via EF Core.
 
 ## Installation
 
 ```bash
-dotnet add package FluentSpecification
+dotnet add package SpecOps
 ```
 
 ## Quick Start
@@ -14,7 +14,7 @@ dotnet add package FluentSpecification
 
 ```csharp
 using System.Linq.Expressions;
-using FluentSpecification;
+using SpecOps;
 
 public class ActiveClient : Specification<Client>
 {

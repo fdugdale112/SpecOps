@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace FluentSpecification.Tests;
+namespace SpecOps.Tests;
 
 public class ByEmail(string email) : Specification<TestEntity>
 {

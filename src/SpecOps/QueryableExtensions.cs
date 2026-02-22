@@ -1,4 +1,4 @@
-namespace FluentSpecification;
+namespace SpecOps;
 
 public static class QueryableExtensions
 {

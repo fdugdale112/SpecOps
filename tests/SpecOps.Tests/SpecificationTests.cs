@@ -1,7 +1,7 @@
 using FluentAssertions;
-using static FluentSpecification.Tests.Specs;
+using static SpecOps.Tests.Specs;
 
-namespace FluentSpecification.Tests;
+namespace SpecOps.Tests;
 
 public class SpecificationTests
 {

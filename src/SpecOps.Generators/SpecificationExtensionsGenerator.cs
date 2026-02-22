@@ -5,12 +5,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace FluentSpecification.Generators;
+namespace SpecOps.Generators;
 
 [Generator]
 public class SpecificationExtensionsGenerator : IIncrementalGenerator
 {
-    private const string SpecificationFullName = "FluentSpecification.Specification";
+    private const string SpecificationFullName = "SpecOps.Specification";
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -121,7 +121,7 @@ public class SpecificationExtensionsGenerator : IIncrementalGenerator
             {
                 var paramList = string.Join(", ", spec.Parameters.Select(p => $"{p.Type} {p.Name}"));
                 var argList = string.Join(", ", spec.Parameters.Select(p => p.Name));
-                var specType = $"global::FluentSpecification.Specification<{spec.EntityType}>";
+                var specType = $"global::SpecOps.Specification<{spec.EntityType}>";
 
                 // Factory method
                 sb.AppendLine($"    public static {specType} {spec.ClassName}({paramList})");
@@ -129,7 +129,7 @@ public class SpecificationExtensionsGenerator : IIncrementalGenerator
                 sb.AppendLine();
 
                 // Extension method for SpecChain
-                var chainParam = $"this global::FluentSpecification.SpecChain<{spec.EntityType}> chain";
+                var chainParam = $"this global::SpecOps.SpecChain<{spec.EntityType}> chain";
                 var extParamList = paramList.Length > 0 ? $"{chainParam}, {paramList}" : chainParam;
 
                 sb.AppendLine($"    public static {specType} {spec.ClassName}({extParamList})");

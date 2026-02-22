@@ -17,6 +17,6 @@ jobs:
 
       - run: dotnet test -c Release
 
-      - run: dotnet pack src/FluentSpecification -c Release -p:Version=${GITHUB_REF_NAME#v}
+      - run: dotnet pack src/SpecOps -c Release -p:Version=${GITHUB_REF_NAME#v}
 
-      - run: dotnet nuget push src/FluentSpecification/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - run: dotnet nuget push src/SpecOps/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

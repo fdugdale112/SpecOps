@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace FluentSpecification;
+namespace SpecOps;
 
 /// <summary>
 /// Base class for the Specification pattern. Encapsulates a business rule

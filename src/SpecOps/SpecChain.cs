@@ -1,4 +1,4 @@
-namespace FluentSpecification;
+namespace SpecOps;
 
 /// <summary>
 /// Intermediate type for fluent specification chaining.

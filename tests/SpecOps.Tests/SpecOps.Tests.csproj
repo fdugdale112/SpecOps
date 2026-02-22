@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FluentSpecification\FluentSpecification.csproj" />
-    <ProjectReference Include="..\..\src\FluentSpecification.Generators\FluentSpecification.Generators.csproj"
+    <ProjectReference Include="..\..\src\SpecOps\SpecOps.csproj" />
+    <ProjectReference Include="..\..\src\SpecOps.Generators\SpecOps.Generators.csproj"
                       ReferenceOutputAssembly="false"
                       OutputItemType="Analyzer" />
   </ItemGroup>
