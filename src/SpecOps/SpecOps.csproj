@@ -13,6 +13,7 @@
     <PackageTags>specification;ddd;domain-driven-design;efcore;linq;expressions</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/fdugdale112/SpecOps</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
