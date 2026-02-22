@@ -1,0 +1,28 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.DotSettings.user
+
+## IDE
+.idea/
+.vs/
+*.swp
+
+## Claude Code
+.claude/
+
+## Build
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+
+## NuGet
+*.nupkg
+*.snupkg
+
+## Coverage
+coverage/
+TestResults/

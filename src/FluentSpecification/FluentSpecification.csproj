@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- NuGet package metadata -->
+    <PackageId>FluentSpecification</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Fred Dugdale</Authors>
+    <Description>A fluent, composable Specification pattern for .NET. Build readable, testable business rules as expressions that translate directly to SQL via EF Core.</Description>
+    <PackageTags>specification;ddd;domain-driven-design;efcore;linq;expressions</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentSpecification.Generators\FluentSpecification.Generators.csproj"
+                      ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer" />
+  </ItemGroup>
+
+</Project>
