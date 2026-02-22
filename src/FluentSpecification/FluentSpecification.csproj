@@ -25,4 +25,18 @@
                       OutputItemType="Analyzer" />
   </ItemGroup>
 
+  <!-- Bundle the generator DLL into the NuGet package -->
+  <PropertyGroup>
+    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);_AddGeneratorToPackage</GetTargetPathDependsOn>
+  </PropertyGroup>
+
+  <Target Name="_AddGeneratorToPackage">
+    <ItemGroup>
+      <None Include="$(MSBuildProjectDirectory)/../FluentSpecification.Generators/bin/$(Configuration)/netstandard2.0/FluentSpecification.Generators.dll"
+            Pack="true"
+            PackagePath="analyzers/dotnet/cs"
+            Visible="false" />
+    </ItemGroup>
+  </Target>
+
 </Project>

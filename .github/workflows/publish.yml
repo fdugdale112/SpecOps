@@ -1,0 +1,22 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
+
+      - run: dotnet test -c Release
+
+      - run: dotnet pack src/FluentSpecification -c Release -p:Version=${GITHUB_REF_NAME#v}
+
+      - run: dotnet nuget push src/FluentSpecification/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
