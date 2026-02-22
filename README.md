@@ -14,7 +14,7 @@ var transactions = await dbContext.Transactions
         t.Amount > 10_000m &&
         t.Currency == "GBP" &&
         t.Status != TransactionStatus.Reversed &&
-        (t.RiskScore > 0.7m ||
+        !(t.RiskScore > 0.7m ||
             (t.CounterpartyCountry != "GB" &&
              t.Amount > 50_000m)) &&
         t.SettlementDate >= DateTime.UtcNow.AddDays(-30) &&
@@ -31,7 +31,7 @@ var flagged = ActiveAccount()
     .And().LargeTransaction(10_000m)
     .And().InCurrency("GBP")
     .And().NotReversed()
-    .And().HighRisk()
+    .And().Not().HighRisk()
     .And().SettledWithin(30)
     .And().ReviewComplete();
 
@@ -114,6 +114,9 @@ var spec = ByEmail("fred@acme.com")
 
 ```csharp
 var inactive = Active().Not;
+
+// In a chain
+var spec = Active().And().Not().HighRisk();
 ```
 
 ## License

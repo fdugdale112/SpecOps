@@ -11,7 +11,7 @@ public class ReadmeEquivalenceTests
         t.Amount > 10_000m &&
         t.Currency == "GBP" &&
         t.Status != TransactionStatus.Reversed &&
-        (t.RiskScore > 0.7m ||
+        !(t.RiskScore > 0.7m ||
             (t.CounterpartyCountry != "GB" &&
              t.Amount > 50_000m)) &&
         t.SettlementDate >= DateTime.UtcNow.AddDays(-30) &&
@@ -23,14 +23,44 @@ public class ReadmeEquivalenceTests
             .And().LargeTransaction(10_000m)
             .And().InCurrency("GBP")
             .And().NotReversed()
-            .And().HighRisk()
+            .And().Not().HighRisk()
             .And().SettledWithin(30)
             .And().ReviewComplete();
 
     public static TheoryData<string, Transaction> AllTransactions => new()
     {
         {
-            "Flagged: high risk score, active, large, GBP, recent, reviewed",
+            "Included: low risk, domestic, large, GBP, recent",
+            new Transaction
+            {
+                Account = new Account { IsActive = true, IsFrozen = false },
+                Amount = 25_000m,
+                Currency = "GBP",
+                Status = TransactionStatus.Settled,
+                RiskScore = 0.3m,
+                CounterpartyCountry = "GB",
+                SettlementDate = DateTime.UtcNow.AddDays(-5),
+                RequiresManualReview = false,
+                ReviewedBy = null
+            }
+        },
+        {
+            "Included: low risk, domestic, reviewed",
+            new Transaction
+            {
+                Account = new Account { IsActive = true, IsFrozen = false },
+                Amount = 15_000m,
+                Currency = "GBP",
+                Status = TransactionStatus.Settled,
+                RiskScore = 0.1m,
+                CounterpartyCountry = "GB",
+                SettlementDate = DateTime.UtcNow.AddDays(-10),
+                RequiresManualReview = true,
+                ReviewedBy = "Alice"
+            }
+        },
+        {
+            "Excluded: high risk score",
             new Transaction
             {
                 Account = new Account { IsActive = true, IsFrozen = false },
@@ -40,12 +70,11 @@ public class ReadmeEquivalenceTests
                 RiskScore = 0.9m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
-                RequiresManualReview = false,
-                ReviewedBy = null
+                RequiresManualReview = false
             }
         },
         {
-            "Flagged: foreign large transfer (high risk via country+amount)",
+            "Excluded: foreign large transfer (high risk via country+amount)",
             new Transaction
             {
                 Account = new Account { IsActive = true, IsFrozen = false },
@@ -55,8 +84,7 @@ public class ReadmeEquivalenceTests
                 RiskScore = 0.2m,
                 CounterpartyCountry = "US",
                 SettlementDate = DateTime.UtcNow.AddDays(-1),
-                RequiresManualReview = true,
-                ReviewedBy = "Alice"
+                RequiresManualReview = false
             }
         },
         {
@@ -67,7 +95,7 @@ public class ReadmeEquivalenceTests
                 Amount = 25_000m,
                 Currency = "GBP",
                 Status = TransactionStatus.Settled,
-                RiskScore = 0.9m,
+                RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
                 RequiresManualReview = false
@@ -81,7 +109,7 @@ public class ReadmeEquivalenceTests
                 Amount = 25_000m,
                 Currency = "GBP",
                 Status = TransactionStatus.Settled,
-                RiskScore = 0.9m,
+                RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
                 RequiresManualReview = false
@@ -95,7 +123,7 @@ public class ReadmeEquivalenceTests
                 Amount = 5_000m,
                 Currency = "GBP",
                 Status = TransactionStatus.Settled,
-                RiskScore = 0.9m,
+                RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
                 RequiresManualReview = false
@@ -109,7 +137,7 @@ public class ReadmeEquivalenceTests
                 Amount = 25_000m,
                 Currency = "USD",
                 Status = TransactionStatus.Settled,
-                RiskScore = 0.9m,
+                RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
                 RequiresManualReview = false
@@ -123,20 +151,6 @@ public class ReadmeEquivalenceTests
                 Amount = 25_000m,
                 Currency = "GBP",
                 Status = TransactionStatus.Reversed,
-                RiskScore = 0.9m,
-                CounterpartyCountry = "GB",
-                SettlementDate = DateTime.UtcNow.AddDays(-5),
-                RequiresManualReview = false
-            }
-        },
-        {
-            "Excluded: low risk, domestic, under 50k",
-            new Transaction
-            {
-                Account = new Account { IsActive = true, IsFrozen = false },
-                Amount = 25_000m,
-                Currency = "GBP",
-                Status = TransactionStatus.Settled,
                 RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
@@ -151,7 +165,7 @@ public class ReadmeEquivalenceTests
                 Amount = 25_000m,
                 Currency = "GBP",
                 Status = TransactionStatus.Settled,
-                RiskScore = 0.9m,
+                RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-60),
                 RequiresManualReview = false
@@ -165,7 +179,7 @@ public class ReadmeEquivalenceTests
                 Amount = 25_000m,
                 Currency = "GBP",
                 Status = TransactionStatus.Settled,
-                RiskScore = 0.9m,
+                RiskScore = 0.3m,
                 CounterpartyCountry = "GB",
                 SettlementDate = DateTime.UtcNow.AddDays(-5),
                 RequiresManualReview = true,
